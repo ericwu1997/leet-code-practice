@@ -1,0 +1,35 @@
+746. Min Cost Climbing Stairs
+
+Runtime:      4 ms
+Memory Usage: 6 MB
+
+#define min(X, Y)  (X < Y ? X : Y)
+
+int minCostClimbingStairs(int* cost, int costSize){
+    int i = 2;
+    
+    int* v = malloc(costSize*sizeof(int));
+    v[0] = cost[0];
+    v[1] = cost[1];
+    for(; i < costSize; i++) {
+        v[i] = min(v[i - 1], v[i - 2]) + cost[i];
+    }
+    return min(v[costSize - 2], v[costSize - 1]);
+}
+
+/*
+ * Applied algo: DP
+ *
+ * Logic: 
+ * Y, Y and Z are the cost.
+ * [X]  [Y]  [Z]
+ *
+ * There are two possible way to reach [Z]
+ * 1. [X] -> [Z],   cost = X 
+ * 2. [Y] -> [Z],   cost = X + Y
+ * Hence, we can say the min cost to reach [Z] is
+ * [Z] = min( cost(X), cost(Y) )
+ * 
+ * The "v" array is used to record the total cost 
+ * required to reach the step at the corresponding index.
+ */
