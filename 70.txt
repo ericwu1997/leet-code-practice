@@ -1,0 +1,29 @@
+70. Climbing Stairs
+
+int climbStairs(int n){
+    int v[46] = {0}, i = 2;
+    v[0] = 1;
+    v[1] = 2;
+    for(;i < n; i++) {
+        v[i] = v[i - 1] + v[i - 2];
+    }
+    return v[n - 1];
+}
+
+/*
+ * Description: You are climbing a staircase. It takes n 
+ * steps to reach the top. Each time you can either climb 1 
+ * or 2 steps. In how many distinct ways can you climb to 
+ * the top?
+ *
+ * Applied algo: Fibonacci
+ *
+ * Logic: think of the each step as a choice, either 1 or 2.
+ * We already know the numbers of way to reach 1th and 2nd 
+ * stair is 1, and 2. To reach 3rd step, we can take the  
+ * one step choice for every possible way we can take to
+ * reach 2nd stair, or we can take the 2 step choice for
+ * every possible way we can take to reach 1st stair.
+ * Hence, we can expand this logic and use the formula
+ * f(n) = f(n - 1) + f(n - 2) to solve this problem.
+ */
