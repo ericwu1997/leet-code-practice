@@ -11,11 +11,6 @@ int climbStairs(int n){
 }
 
 /*
- * Description: You are climbing a staircase. It takes n 
- * steps to reach the top. Each time you can either climb 1 
- * or 2 steps. In how many distinct ways can you climb to 
- * the top?
- *
  * Applied algo: Fibonacci
  *
  * Logic: think of the each step as a choice, either 1 or 2.
