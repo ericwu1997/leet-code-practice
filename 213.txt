@@ -1,0 +1,48 @@
+213. House Robber II
+
+#define max(X, Y)  (X > Y ? X : Y)
+
+int f(const int* nums, const int numsSize){
+    int* v = malloc(numsSize*sizeof(int));
+    v[0] = nums[0];
+    v[1] = max(nums[0], nums[1]);
+    for(int i = 2; i < numsSize; i++) {
+        v[i] = max((v[i - 2] + nums[i]), v[i - 1]);
+    }
+    return v[numsSize - 1];
+}
+
+int rob(int* nums, int numsSize){
+    if(numsSize == 1)
+        return nums[0];
+    if(numsSize == 2)
+        return max(nums[0], nums[1]);
+    return max(
+        f(nums, numsSize - 1),
+        f(nums+1, numsSize - 1));
+}
+
+----------------------------------------------------
+
+*Explain:
+Similar logic to problem No. 198 "House Robber".
+[W] [X]  [Y]  [Z] represent each house, where [Z]
+and [W] are adjacent to each other.
+All we have to do, is use the same logic in 
+"House Robber", and calcualte the following range
+1. [W] [X] [Y]
+2.     [X] [Y] [Z]
+the range with higher earn is the answer.
+
+
+* Description:You are a professional robber planning 
+to rob houses along a street. Each house has a certain 
+amount of money stashed. All houses at this place are 
+arranged in a circle. That means the first house is 
+the neighbor of the last one. Meanwhile, adjacent 
+houses have a security system connected, and it will 
+automatically contact the police if two adjacent 
+houses were broken into on the same night.
+Given an integer array nums representing the amount
+of money of each house, return the maximum amount of 
+money you can rob tonight without alerting the police.
