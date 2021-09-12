@@ -1,0 +1,37 @@
+198. House Robber
+
+#define max(X, Y)  (X > Y ? X : Y)
+
+int rob(int* nums, int numsSize){
+    if(numsSize == 1)
+        return nums[0];
+    
+    int* v = malloc(numsSize*sizeof(int));
+    v[0] = nums[0];
+    v[1] = max(nums[0], nums[1]);
+    for(int i = 2; i < numsSize; i++) {
+        v[i] = max((v[i - 2] + nums[i]), v[i - 1]);
+    }
+    return v[numsSize - 1];
+}
+
+----------------------------------------------------
+
+* Explain:
+[X]  [Y]  [Z] represent each house
+Since no two adjacent houses can be broken in
+at the same time, there are two possible ways
+1. rob [X] and [Z], or
+2. rob [Y]
+
+* Description:
+You are a professional robber planning to rob houses 
+along a street. Each house has a certain amount of 
+money stashed, the only constraint stopping you from 
+robbing each of them is that adjacent houses have 
+security systems connected and it will automatically 
+contact the police if two adjacent houses were broken 
+into on the same night. Given an integer array nums 
+representing the amount of money of each house, return 
+the maximum amount of money you can rob tonight 
+without alerting the police.
