@@ -1,0 +1,42 @@
+45. Jump Game II
+
+#define max(X, Y)  (X > Y ? X : Y)
+
+int jump(int* nums, int numsSize){
+    if(numsSize == 1) return 0;
+    
+    int n, m, result = 1;
+    m = n = nums[0];
+    for(int i = 1; i < numsSize && m != numsSize - 1; i++) {
+        if(nums[i] + i > n) n = nums[i] + i;
+        if(m == i && result++) m = n;
+    }
+    return result;
+}
+
+----------------------------------------------------
+
+* Explain:
+Similar logic to No 55. "Jump Game". "n" is used 
+to keep track of the furthest distance we can get
+on any given range. Only difference is that we 
+have an additional variable "m" to keep track of 
+the range of jump. For instance, given an array 
+[2, 3, 1, 1, 4]
+the "m" variable at each iteration would be
+[2, 4, 4, 4, 4]. At each iteration, if "m"
+is equal to "i", we increment result by 1, then
+update "m" to equal "n"
+By default, we alway assume atleast 1 jump would
+occure, and thus "result = 1" before the for loop.
+Unless the numsSzie is less than 2. In that case,
+simply return 0.
+
+*Description
+Given an array of non-negative integers nums, you 
+are initially positioned at the first index of the 
+array. Each element in the array represents your 
+maximum jump length at that position. Your goal is to 
+reach the last index in the minimum number of jumps.
+You can assume that you can always reach the last 
+index.
