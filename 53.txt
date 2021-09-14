@@ -1,0 +1,31 @@
+53. Maximum Subarray
+
+#define max(X, Y)  (X > Y ? X : Y)
+
+int maxSubArray(int* nums, int numsSize){
+    int m = nums[0];
+    for(int i = 1; i < numsSize; i++) {
+        nums[i] = max(nums[i - 1] + nums[i], nums[i]);
+        m = max(nums[i], m);
+    }
+    return m;
+}
+
+----------------------------------------------------
+
+* Explain:
+V = [.....] as input array
+Record maximum sum "M" at each step. At each iteration,
+the sum of "M" and values up to index [i - 1] is 
+stored at V[i - 1]. If the benifit of including V[i]
+out weight the sum of including V[i] and V[i - 1], 
+simply keep nums[i] as it is, otherwise increment
+V[i] by the value of V[i - 1]. Next, compare the 
+last best sum with V[i]. V[i] > max means including
+V[i] is beneficial. If, V[i] < max, it means otherwise.
+
+*Description:
+Given an integer array nums, find the contiguous 
+subarray (containing at least one number) which has 
+the largest sum and return its sum.A subarray is a 
+contiguous part of an array.
