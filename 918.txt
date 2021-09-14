@@ -31,28 +31,17 @@ int maxSubarraySumCircular(int* nums, int numsSize){
 The solutions uses "Kadane's algorithm". The function
 "maxSubArray" is copied from the previous problem 
 "No. 53 Maximum Subarray". 
+1. [----A----][----B----][----C----]
+The only cases when there's a circular solution is 
+when the "maximum lost range" locates at the center
+of intput array. All other cases can be account for
+by treating it as liner solution. To calcuate the
+circular solution, simply remove the total of "maximum
+lost range" from the sum of the array.
 
-Use the this figure as a reference
-[-----A-----][-----B-----][-----C-----]
-A circular solution would mean that the range of 
-maximum lost is at B. On the other hand, if is a
-linear solution, the maximum 'ost would be either A
-or C. So, all we have two do is calcuate two value.
-The first value assumes we have a linear solution,
-which can be obtained by running the input through
-the "maxSubArray" function. The second value 
-assumes we have a circular solution. In this case,
-we first add up the values in the array to acquire
-a sum. Next, reverse the sign in the array and 
-run it through the "maxSubArray" function, then 
-add the return value with the sum. Lastly, compare
-the two solution, the greater one is the answer.
-
-There are cases where every value in the array 
-is negative. In this case, we have to at least 
-choose 1 of the smallest negative value. The
-"if(circular == 0)" is used to account for these
-cases.
+If all values are negative, we have to choose at
+least one smallest value. If "if(circular == 0)"
+is used to deal with such cases.
 
 * Description:
 Given a circular integer array nums of length n, 
