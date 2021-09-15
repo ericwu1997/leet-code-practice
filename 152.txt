@@ -1,0 +1,50 @@
+152. Maximum Product Subarray
+
+#define max(X, Y)  (X > Y ? X : Y)
+#define min(X, Y)  (X < Y ? X : Y)
+
+int maxProduct(int* nums, int numsSize){
+    int result, n, m, tmp;
+    result = n = m = nums[0];
+    for(int i = 1; i < numsSize; i++) {
+        tmp = min(nums[i], min(nums[i] * n, nums[i] * m));
+        m = max(nums[i], max(nums[i] * n, nums[i] * m));
+        n = tmp;
+        if(m > result) result = m;
+    }
+    return result;
+}
+
+----------------------------------------------------
+
+*Explain:
+Record the maximum factor "M" and minimum factor "N'
+at each iteration. Compare currrent number v[i], with
+v[i] * M and v[i] * N, then update "M" to the biggest
+number, and "N" to the smallest number. At the end
+of each iteration, compare the last record maximum 
+"result" with current calculated maximum "M". If
+"M" > result, update result to "M".
+
+The logic behind this algorithm is based on 
+the following scenarios.
+1. the smallest negative number could become the 
+biggest if the next value is negative, given that
+negative * negative = positive. For instance
+[-100, -1, -100] follow by [-1]
+2. the biggest positive number could become the 
+smallest if the next value is negative, given that
+negative * positive = negative.
+[100, 1, 100] follow by [-1]
+3. current value V[i] could be the smallest or biggest
+factor we can get from range v[i] down to v[0].
+[0, 0] follow by the cuurent number [100] or [-100]
+
+*Description 
+Given an integer array nums, find a contiguous 
+non-empty subarray within the array that has the 
+largest product, and return the product. It is 
+guaranteed that the answer will fit in a 32-bit 
+integer. A subarray is a contiguous subsequence 
+of the array.
+
